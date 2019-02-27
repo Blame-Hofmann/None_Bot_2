@@ -1,12 +1,12 @@
 module Config {
-  //Llaves de conexión que requiere la aplicación
+  //API Keys Used by the Bot
   export module ApiKey {
     export let discord = "API_KEY_FROM_DISCORD_BOT"
     export let Fixer = "API_KEY_FROM_FIXER_FREE_ACCOUNT"
 
   }
 
-  //Configuración de la conexión con MySQL
+  //MySQL Configuration
   export module DB {
     export let host = "localhost"
     export let port = 8080
@@ -16,7 +16,7 @@ module Config {
 
   }
 
-  //Configuración General del Bot
+  //General Bot Configuration
   export module Cmd {
     export let cmd_symbol = "&"
 
