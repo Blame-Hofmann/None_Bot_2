@@ -1,0 +1,29 @@
+{
+  "name": "none_bot_2",
+  "version": "0.0.1",
+  "description": "A bot for Discord with MySQL.",
+  "main": "dist/init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/init.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blame-Hofmann/None_Bot_2.git"
+  },
+  "author": "Blame-Hofmann",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Blame-Hofmann/None_Bot_2/issues"
+  },
+  "homepage": "https://github.com/Blame-Hofmann/None_Bot_2#readme",
+  "dependencies": {
+    "@types/module-alias": "^2.0.0",
+    "@types/moment": "^2.13.0",
+    "@types/mysql": "^2.15.5",
+    "discord.js": "^11.4.2",
+    "module-alias": "^2.2.0",
+    "moment": "^2.24.0",
+    "mysql": "^2.16.0"
+  }
+}
