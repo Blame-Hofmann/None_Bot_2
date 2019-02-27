@@ -1,5 +1,6 @@
 import * as Discord from "discord.js"
 import Config from ">/config"
+import Log from ">/tools/log"
 
 class Command {
   private _cmd: string
@@ -7,10 +8,10 @@ class Command {
     return this._cmd
   }
   public set cmd(value: string) {
-    this._cmd = value
+    this._cmd = value.toLowerCase()
   }
 
-  private _callback: (cli: Discord.Client, msg: Discord.Message, args: Array<String>) => void
+  private _callback: (cli: Discord.Client, msg: Discord.Message, args?: Array<String>, text?: string) => void
   public get callback() {
     return this._callback
   }
@@ -20,7 +21,7 @@ class Command {
   @param msg It's que Message sended to the Bot
   @param args It's an Array with all arguments passet to the Bot
   */
-  public set callback(value: (cli: Discord.Client, msg: Discord.Message, args: Array<String>) => void) {
+  public set callback(value: (cli: Discord.Client, msg: Discord.Message, args?: Array<String>, text?: string) => void) {
     this._callback = value
   }
 
@@ -29,8 +30,13 @@ class Command {
   @param cmd [optional] A string with the name of the command
   */
   constructor(cmd?: string) {
-    this._cmd = cmd
     this._callback = null
+
+    if (cmd != null) {
+      this._cmd = cmd.toLowerCase()
+    } else {
+      this._cmd = null
+    }
   }
 
   /**
@@ -41,10 +47,12 @@ class Command {
     let content: string = msg.content
 
     //Return if the command don't match
-    if (content.match(new RegExp(`^${symbol}${this._cmd}`, "gi")) == null) {
+    let regex = new RegExp(`^${symbol}${this._cmd}`, "gi")
+    if (content.match(regex) == null) {
       return
     }
 
+    //Make an Array with arguments of the command
     let args: Array<string> = []
     content = content.replace(/\s+/gi, " ")
     content.split(" ").forEach((str, i) => {
@@ -53,9 +61,41 @@ class Command {
       }
     })
 
-    //Execute the command
-    this._callback(cli, msg, args)
+    //Log this event
+    Log.writeLine("Command Detected", 1)
+    console.log((() => {
+      let str_log: string = ""
+      str_log += `                   ID   = ${msg.author.id}.-\n`
+      str_log += `                   User = ${msg.author.username}.-\n`
+      str_log += `                   Comm = ${this._cmd}.-\n`
+      str_log += `                   Args = `
+      if (args.length == 0) {
+        str_log += `null`
+      } else {
+        let param: string = ""
+        args.forEach((str, i) => {
+          if (i > 0) {
+            param += "; "
+          }
 
+          param += `"${str}"`
+        })
+
+        str_log += param.substr(0, 64)
+        if (param.length > 64) {
+          str_log += " [...]"
+        }
+      }
+
+      return str_log + ".-\n"
+    })())
+
+
+    //Execute the command
+    let text = msg.content.replace(regex, "").trim()
+    this._callback(cli, msg, args, text)
+    Log.writeLine("Command Complete", 2)
+    Log.writeSeparator()
   }
 }
 export default Command

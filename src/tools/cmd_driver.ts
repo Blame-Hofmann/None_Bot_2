@@ -1,6 +1,6 @@
 import * as Discord from "discord.js"
 import Config from ">/config"
-import cmd_list from "./cmd_list"
+import cmd_list from ">/cmd_list"
 
 let CmdDriver = (cli: Discord.Client, msg: Discord.Message) => {
   //Ignore Self Messages

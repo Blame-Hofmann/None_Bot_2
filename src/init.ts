@@ -6,13 +6,14 @@ import * as Discord from "discord.js"
 import Config from ">/config"
 import Log from ">/tools/log"
 
-import CmdDriver from ">/data/cmd_driver"
+import CmdDriver from ">/tools/cmd_driver"
 
 //Check the correct Boot
 const cli = new Discord.Client()
 cli.once("ready", () => {
     Log.writeLine("Connection Successfull :^)", 2)
-    Log.writeLine("Listening...\n", 1)
+    Log.writeLine("Listening...", 1)
+    Log.writeSeparator()
 })
 
 //Get Messages
