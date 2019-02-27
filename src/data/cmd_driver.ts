@@ -14,6 +14,6 @@ let CmdDriver = () => {
     return
   }
 
-  MsgConst.msg.reply("Ayyy Lmao")
+  MsgConst.msg.reply("Ayyy Lmaooo")
 }
 export default CmdDriver
