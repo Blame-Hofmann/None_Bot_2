@@ -7,7 +7,6 @@ import Config from ">/config"
 import Log from ">/tools/log"
 
 import CmdDriver from ">/data/cmd_driver"
-import MsgConst from ">/msg_const"
 
 //Check the correct Boot
 const cli = new Discord.Client()
@@ -18,9 +17,7 @@ cli.once("ready", () => {
 
 //Get Messages
 cli.on("message", (msg: Discord.Message) => {
-  MsgConst.cli = cli
-  MsgConst.msg = msg
-  CmdDriver()
+  CmdDriver(cli, msg)
 
 })
 

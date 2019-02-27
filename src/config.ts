@@ -18,7 +18,7 @@ module Config {
 
   //General Bot Configuration
   export module Cmd {
-    export let cmd_symbol = "&"
+    export let symbol = "&"
 
   }
 }
