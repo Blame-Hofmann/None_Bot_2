@@ -1,8 +1,8 @@
 module Config {
-  //API Keys Used by the Bot
+  //API Keys used by the Bot
   export module ApiKey {
-    export let discord = "API_KEY_FROM_DISCORD_BOT"
-    export let Fixer = "API_KEY_FROM_FIXER_FREE_ACCOUNT"
+    export let discord = "INSERT_YOUR_DISCORD_API_KEY_HERE"
+    export let Fixer = "INSERT_YOUR_FIXER_API_KEY_HERE"
 
   }
 
@@ -19,6 +19,7 @@ module Config {
   //General Bot Configuration
   export module Cmd {
     export let symbol = "&"
+    export let id_dev = "ENSERT_THE_DEV_ID_HERE"
 
   }
 }
