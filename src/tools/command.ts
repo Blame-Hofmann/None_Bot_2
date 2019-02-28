@@ -1,6 +1,7 @@
 import * as Discord from "discord.js"
 import Config from ">/config"
 import Log from ">/tools/log"
+import DB from ">/tools/db"
 
 class Command {
   private _cmd: string
@@ -11,7 +12,7 @@ class Command {
     this._cmd = value.toLowerCase()
   }
 
-  private _callback: (cli: Discord.Client, msg: Discord.Message, args?: Array<String>, text?: string) => void
+  private _callback: (cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) => void
   public get callback() {
     return this._callback
   }
@@ -21,7 +22,7 @@ class Command {
   @param msg It's que Message sended to the Bot
   @param args It's an Array with all arguments passet to the Bot
   */
-  public set callback(value: (cli: Discord.Client, msg: Discord.Message, args?: Array<String>, text?: string) => void) {
+  public set callback(value: (cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) => void) {
     this._callback = value
   }
 
@@ -93,9 +94,27 @@ class Command {
 
     //Execute the command
     let text = msg.content.replace(regex, "").trim()
-    this._callback(cli, msg, args, text)
-    Log.writeLine("Command Complete", 2)
-    Log.writeSeparator()
+    this.check_db(cli, msg, args, text)
+  }
+
+  //Check if this channel as in Whitelist
+  private check_db(cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) {
+    DB.makeQuestion(
+      "get_available_channel",
+      [
+        msg.guild.id,
+        msg.channel.id
+      ], (data) => {
+        let is_available: boolean = data[0].value
+
+        if (is_available == false) {
+          return
+        }
+
+        this._callback(cli, msg, args, text)
+        Log.writeLine("Command Complete", 2)
+        Log.writeSeparator()
+      })
   }
 }
 export default Command
