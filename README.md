@@ -14,7 +14,7 @@ npm update
 ```
 
 ### Configurar Archivo de Conexión
-El archivo "bot_data/system/bot_conn.ts" hay un archivo que contiene las llaves de conexión de nuetro bot. dentro de ese archivo encontramos lo siguiente
+El archivo "/config.ts" es un módulo que contiene las llaves de conexión de nuetro bot. dentro de ese archivo encontramos lo siguiente
 ```
 module Config {
   //API Keys used by the Bot
