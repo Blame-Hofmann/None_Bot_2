@@ -32,31 +32,34 @@ cmd_currency.callback = (cli, msg, args) => {
 
   Ajax.get(strUrl, (res, data) => {
     let objData = data.rates
-    let numFrom = new Decimal(objData[options.from])
-    let numTo = new Decimal(objData[options.to])
 
-    if ((numFrom == null) || (numTo == null)) {
+    //En caso de que alguna de las divisas no exista
+    if ((objData[options.from] == null) || (objData[options.to] == null)) {
         let note = ""
-        if (numFrom == null) {
+        if (objData[options.from] == null) {
           note += "Moneda 1 = " + options.from + "\n"
         }
-        if (numTo == null) {
+        if (objData[options.to] == null) {
           note += "Moneda 2 = " + options.to + "\n"
         }
 
         msg.reply(`las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
     } else {
-        let numValue = options.amount
-        numValue = numValue.div(numFrom).mul(numTo)
+      //Calculos...
+      let numFrom = new Decimal(objData[options.from])
+      let numTo = new Decimal(objData[options.to])
 
-        let strFrom: string = NumConv.formatNum(options.amount.toString(), 2)
-        let strValue: string = NumConv.formatNum(numValue.toString(), 2)
+      let numValue = options.amount
+      numValue = numValue.div(numFrom).mul(numTo)
 
-        let strReply: string = ""
-        strReply += 'la conversión dió como Resultado:\n'
-        strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
+      let strFrom: string = NumConv.formatNum(options.amount.toString(), 2)
+      let strValue: string = NumConv.formatNum(numValue.toString(), 2)
 
-        msg.reply(strReply)
+      let strReply: string = ""
+      strReply += 'la conversión dió como Resultado:\n'
+      strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
+
+      msg.reply(strReply)
     }
   }, () => {
     let strReply: string = ""
