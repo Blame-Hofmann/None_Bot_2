@@ -31,23 +31,37 @@ cmd_currency.callback = (cli, msg, args) => {
   strUrl += `&format=1`
 
   Ajax.get(strUrl, (res, data) => {
-    let objData = data.rates
+    let objData = (() => {
+      if (data.rates != null) {
+        return data.rates
+      } else {
+        let nullable: any = {}
+        nullable[options.from] = null
+        nullable[options.to] = null
+
+        return nullable
+      }
+    })()
+    let ref = {
+      from: objData[options.from],
+      to: objData[options.to]
+    }
 
     //En caso de que alguna de las divisas no exista
-    if ((objData[options.from] == null) || (objData[options.to] == null)) {
+    if ((ref.from == null) || (ref.to == null)) {
         let note = ""
-        if (objData[options.from] == null) {
+        if (ref.from == null) {
           note += "Moneda 1 = " + options.from + "\n"
         }
-        if (objData[options.to] == null) {
+        if (ref.to == null) {
           note += "Moneda 2 = " + options.to + "\n"
         }
 
         msg.reply(`las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
     } else {
       //Calculos...
-      let numFrom = new Decimal(objData[options.from])
-      let numTo = new Decimal(objData[options.to])
+      let numFrom = new Decimal(ref.from)
+      let numTo = new Decimal(ref.to)
 
       let numValue = options.amount
       numValue = numValue.div(numFrom).mul(numTo)
