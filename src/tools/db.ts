@@ -59,9 +59,9 @@ export module db {
         arr_param.push(param[key])
       })
 
-      console.log(`>>>Iniciando ejecución de SP`)
-      console.log(`SP    = "${str_query}"`)
-      console.log(`Param = "${arr_param}"\n`)
+      // console.log(`>>>Iniciando ejecución de SP`)
+      // console.log(`SP    = "${str_query}"`)
+      // console.log(`Param = "${arr_param}"\n`)
 
       //realizar consulta
       connector.query(str_query, arr_param, (err, val) => {

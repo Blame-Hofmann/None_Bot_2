@@ -2,6 +2,7 @@ import Command from ">/tools/command"
 import Ajax from ">/tools/ajax"
 import Config from ">/config"
 import NumConv from ">/tools/num_conv"
+import { Decimal } from "decimal.js"
 
 let cmd_currency = new Command()
 export default cmd_currency
@@ -9,8 +10,8 @@ export default cmd_currency
 cmd_currency.cmd = "money"
 cmd_currency.callback = (cli, msg, args) => {
   //If the number is not valid...
-    let num_in: string = parseNum(args[0])
-  if (num_in.split(".").length > 2) {
+  let num_in: string = parseNum(args[0])
+  if (num_in == null) {
     msg.reply("el valor ingresado `$ " + args[0] + "` no es válido, no sea pendejo~")
     return
   }
@@ -19,7 +20,7 @@ cmd_currency.callback = (cli, msg, args) => {
   let options = {
       from: parseStr(args[1]).toUpperCase(),
       to: parseStr(args[3]).toUpperCase(),
-      amount: parseFloat(num_in)
+      amount: new Decimal(parseNum(num_in))
   }
 
   //Making the URL
@@ -30,15 +31,9 @@ cmd_currency.callback = (cli, msg, args) => {
   strUrl += `&format=1`
 
   Ajax.get(strUrl, (res, data) => {
-    let numValue: number
-
     let objData = data.rates
-    let numFrom: number
-    let numTo: number
-
-    console.log(objData)
-    numFrom = objData[options.from]
-    numTo = objData[options.to]
+    let numFrom = new Decimal(objData[options.from])
+    let numTo = new Decimal(objData[options.to])
 
     if ((numFrom == null) || (numTo == null)) {
         let note = ""
@@ -49,17 +44,17 @@ cmd_currency.callback = (cli, msg, args) => {
           note += "Moneda 2 = " + options.to + "\n"
         }
 
-        msg.reply(`Las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
+        msg.reply(`las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
     } else {
-        numValue = options.amount
-        numValue = numValue / numFrom
-        numValue = numValue * numTo
+        let numValue = options.amount
+        numValue = numValue.div(numFrom).mul(numTo)
 
-        let strValue: string = NumConv.formatNum(numValue, 2)
+        let strFrom: string = NumConv.formatNum(options.amount.toString(), 2)
+        let strValue: string = NumConv.formatNum(numValue.toString(), 2)
 
         let strReply: string = ""
         strReply += 'la conversión dió como Resultado:\n'
-        strReply += '```$ ' + NumConv.formatNum(options.amount, 2) + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
+        strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
 
         msg.reply(strReply)
     }
@@ -80,11 +75,15 @@ cmd_currency.callback = (cli, msg, args) => {
 }
 
 let parseNum = (str: string) => {
+  if (str.match(/(^[0-9]+$|^[0-9]+(\.|,)[0-9]+$)/gi) == null) {
+    return null
+  }
+
   let patt = str.replace(/,/gi, ".")
   let arr_m = patt.match(/[0-9]+/gi)
 
   if (arr_m == null) {
-    patt = "0.0.0"
+    patt = null
   } else {
     patt = ""
     arr_m.forEach((item, i) => {

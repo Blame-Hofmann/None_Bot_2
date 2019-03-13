@@ -1,7 +1,7 @@
 import * as http from "http"
 
 module Ajax {
-
+  //
   let fnCallback: (msg: http.IncomingMessage, data: any) => void
 
   //Función que arma los datos a ejecutar

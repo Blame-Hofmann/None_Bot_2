@@ -36,7 +36,7 @@ module NumConv {
         }
         if (cantDec >= arrRaw[1].length) {
             //Concatenar ceros
-            strOut = `${strOut},`
+            strOut = `${strOut},${arrRaw[1]}`
             for (let i = arrRaw[1].length; i < cantDec; i++) {
                 strOut = `${strOut}0`
             }
