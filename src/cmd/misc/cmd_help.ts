@@ -1,4 +1,5 @@
 import Command from ">/tools/command"
+import Config from ">/config"
 
 let cmd_help = new Command()
 export default cmd_help
@@ -10,13 +11,19 @@ cmd_help.callback = (cli, msg, args) => {
   if (args.length == 0) {
     //Mostrar una guía general de los comandos disponibles
     txt += "Guía de Comandos: ```"
-    txt += `&test    -> Comando de testeo del Bot [Solo puede ser ejecutado por el desarrollador].\n`
+    txt += `Comandos del Desarrollador:\n`
+    txt += `&test    -> Comando de testeo del Bot.\n`
+    txt += `&kill    -> Apaga el bot.\n\n`
+
+    txt += `Comandos:\n`
     txt += `&channel -> Configuración de los canales habilitados para el funcionamiento del Bot.\n`
     txt += `&money   -> Conversor de Divisas.\n\n`
 
     txt += `Para consultar por un comando específico:\n`
-    txt += `-> &help [cmd]\n`
-    txt += `   [cmd] = comando por el cual consultar`
+    txt += `-> &help [cmd]\n\n`
+
+    txt += `En donde:\n`
+    txt += `-> [cmd] = comando por el cual consultar`
     txt += "```"
 
   } else {
@@ -59,8 +66,14 @@ cmd_help.callback = (cli, msg, args) => {
         break
 
       case "test":
-        txt += "Comando **&test** ```"
-        txt += `COMANDO UTILIZADO SOLO POR EL DESAROLLADOR PARA SUS PRUEBAS, de igual forma, solo el desarrolador del bot tiene acceso a este comando.`
+        txt += "Comando **&test:** ```"
+        txt += `[DEV] - Testing de alguna funcionalidad.`
+        txt += "```"
+        break
+
+      case "kill":
+        txt += "Comando **&kill:** ```"
+        txt += `[DEV] - Asesina al Bot...`
         txt += "```"
         break
 
@@ -70,6 +83,6 @@ cmd_help.callback = (cli, msg, args) => {
     }
   }
 
-  //Detectar primer argumento
+  txt = txt.replace(/&/gi, Config.Cmd.symbol)
   msg.channel.send(txt)
 }

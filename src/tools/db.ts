@@ -21,7 +21,7 @@ export module db {
   ) => {
     let connector = mysql.createConnection(data_conn)
 
-    console.log(`>>>Conectando a Base de Datos`)
+    //console.log(`>>>Conectando a Base de Datos`)
     connector.connect(err => {
       if (err != null) {
         let obj_err: iError = {
@@ -39,7 +39,7 @@ export module db {
         fail(obj_err)
         return
       } else {
-        console.log(`-> [ OK ] Conexión Exitosa\n`)
+        //console.log(`-> [ OK ] Conexión Exitosa\n`)
       }
 
       //Armar la Querystring

@@ -12,7 +12,7 @@ cmd_currency.callback = (cli, msg, args) => {
   //If the number is not valid...
   let num_in: string = parseNum(args[0])
   if (num_in == null) {
-    msg.reply("el valor ingresado `$ " + args[0] + "` no es válido, no sea pendejo~")
+    msg.reply("El valor ingresado `$ " + args[0] + "` no es válido, no sea pendejo~")
     return
   }
 
@@ -31,6 +31,22 @@ cmd_currency.callback = (cli, msg, args) => {
   strUrl += `&format=1`
 
   Ajax.get(strUrl, (res, data) => {
+    if (data.success == false) {
+      let error_msg = "En estos momentos tenemos problemas con el servidor proveedor de información de divisas. "
+      error_msg += "Me contactaré con el desarrollador para que solucione dicho problema."
+
+      msg.reply(error_msg)
+      error_msg = "Tenemos problemas con https://fixer.io/, he aquí los detalles ```"
+      error_msg += `Código: ${data.error.code}\n\n`
+      error_msg += `Descripción: ${data.error.code}` + "```"
+
+      cli.fetchUser(Config.Cmd.id_dev).then(user => {
+        user.send(error_msg)
+      }, () => {
+        msg.reply("Lamentablemente no me puedo comunicar con el desarrollador :sob:")
+      })
+    }
+
     let objData = (() => {
       if (data.rates != null) {
         return data.rates
@@ -57,7 +73,7 @@ cmd_currency.callback = (cli, msg, args) => {
           note += "Moneda 2 = " + options.to + "\n"
         }
 
-        msg.reply(`las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
+        msg.reply(`Las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
     } else {
       //Calculos...
       let numFrom = new Decimal(ref.from)
@@ -70,20 +86,19 @@ cmd_currency.callback = (cli, msg, args) => {
       let strValue: string = NumConv.formatNum(numValue.toString(), 2)
 
       let strReply: string = ""
-      strReply += 'la conversión dió como Resultado:\n'
+      strReply += 'La conversión dió como Resultado:\n'
       strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
 
       msg.reply(strReply)
     }
   }, () => {
     let strReply: string = ""
-    strReply += `Lamentablemente hay un problema con esos judíos del internet.\n`
-    strReply += `No hemos podido conectarnos con los servidores que nos proveen de dicha\n`
-    strReply += `información.`
+    strReply += `Lamentablemente hay un problema con la conexión con el servidor remoto de divisas.\n`
+    strReply += `Se le notificará al desarrollador sobre dicho problema\n`
 
     msg.reply(strReply)
     cli.fetchUser(Config.Cmd.id_dev).then(devMsg => {
-        strReply  = `None, hay un problema con http://data.fixer.io/` + `\n`
+        strReply  = msg.author + `, hay un problema con http://data.fixer.io/` + `\n`
         strReply += `de parte de ellos. Deberías revisar en cuanto antes ese problema...`
 
         devMsg.sendMessage(strReply)

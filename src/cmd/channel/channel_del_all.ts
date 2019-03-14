@@ -7,7 +7,7 @@ let channel_del = (msg: Discord.Message) => {
       msg.reply("Se ha reestablecido toda la configuración de los canales. Ahora el bot tendrá acceso a todos los canales del servidor.")
 
     }, (err) => {
-      msg.reply("tuvo un ERROR al intentar reestablecer la configuración de canales!")
+      msg.reply("Tuvo un ERROR al intentar reestablecer la configuración de canales!")
 
     })
 
