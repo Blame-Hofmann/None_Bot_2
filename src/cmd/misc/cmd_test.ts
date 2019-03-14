@@ -12,5 +12,5 @@ cmd_test.callback = (cli, msg, args) => {
     return
   }
 
-  
+
 }

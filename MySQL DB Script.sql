@@ -1,11 +1,6 @@
-drop database none_bot_dev;
+#drop database none_bot;
 create database none_bot_dev;
 use none_bot_dev;
-
-#Create a new user compatible with Node.js
-#CREATE USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-#ALTER USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-#GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
 
 create table guilds(
 	ID_GUILD		bigint			not null	primary key,

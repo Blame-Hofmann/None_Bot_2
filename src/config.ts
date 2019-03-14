@@ -12,7 +12,7 @@ module Config {
     export let port = 8080
     export let user = "USERNAME"
     export let password = "PASSWORD"
-    export let database = "none_bot"
+    export let database = "none_bot_dev"
 
   }
 
