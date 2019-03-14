@@ -17,7 +17,8 @@ cmd_help.callback = (cli, msg, args) => {
 
     txt += `Comandos:\n`
     txt += `&channel -> Configuración de los canales habilitados para el funcionamiento del Bot.\n`
-    txt += `&money   -> Conversor de Divisas.\n\n`
+    txt += `&money   -> Conversor de Divisas.\n`
+    txt += `&flip    -> Lanza una moneda.\n\n`
 
     txt += `Para consultar por un comando específico:\n`
     txt += `-> &help [cmd]\n\n`
