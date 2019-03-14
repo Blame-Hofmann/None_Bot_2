@@ -24,6 +24,7 @@ cli.on("message", (msg: Discord.Message) => {
 
 //Login
 Log.clear()
-console.log(`-------=============>>>>NONE BOT ver0.0.1<<<<=============-------\n`)
+process.title = "None BOT [dev]"
+console.log(`-------=============>>>>NONE BOT ver0.0.1 [DEV]<<<<=============-------\n`)
 Log.writeLine(`Loggin...`, 1)
 cli.login(Config.ApiKey.discord)
