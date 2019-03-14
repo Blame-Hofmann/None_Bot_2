@@ -9,6 +9,12 @@ export default cmd_currency
 
 cmd_currency.cmd = "money"
 cmd_currency.callback = (cli, msg, args) => {
+  //If no parameters
+  if (args.length == 0) {
+    msg.reply("Usted no ha ingresado ningún parámetro, no sea pendejo~")
+    return
+  }
+
   //If the number is not valid...
   let num_in: string = parseNum(args[0])
   if (num_in == null) {

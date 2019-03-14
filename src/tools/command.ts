@@ -45,7 +45,7 @@ class Command {
   */
   public exec(cli: Discord.Client, msg: Discord.Message) {
     let symbol: string = Config.Cmd.symbol
-    let content: string = msg.content
+    let content: string = msg.content.split(/\s/gi)[0]
 
     //Return if the command don't match
     let regex = new RegExp(`^${symbol}${this._cmd}`, "gi")

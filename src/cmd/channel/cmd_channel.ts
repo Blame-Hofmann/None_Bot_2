@@ -17,15 +17,15 @@ cmd_channel.callback = (cli, msg, args) => {
     return
   }
 
-  //Check parameters
-  if (args.length <= 1) {
-    msg.reply("Usted no ha ingresado los parámetros suficientes para configurar los canales admitidos. Por favor consulte la guía para más información.")
-    return
-  }
-
   //Check Owner
   if (msg.guild.owner.id != msg.author.id) {
     msg.reply("Solo el Owner del server tiene autorización para configurar los canales admitidos. Por favor consulte la guía para más información.")
+    return
+  }
+
+  //Check parameters
+  if (args.length <= 1) {
+    msg.reply("Usted no ha ingresado los parámetros suficientes para configurar los canales admitidos. Por favor consulte la guía para más información.")
     return
   }
 
