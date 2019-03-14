@@ -1,6 +1,6 @@
-drop database none_bot;
-create database none_bot;
-use none_bot;
+drop database none_bot_dev;
+create database none_bot_dev;
+use none_bot_dev;
 
 #Create a new user compatible with Node.js
 #CREATE USER 'username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
@@ -30,32 +30,32 @@ BEGIN
 	set @found_guild = (
 		select
 			guilds.ID_GUILD
-			
+
 		from guilds
 
 		where
 			guilds.ID_GUILD = ID_GUILD
-			
+
 		limit 1
     );
-    
+
     if (@found_guild is null) then
 		select true as value;
-        
+
 	else
 		set @found_chann = (
 			select
 				channels.ID_CHANN
-                
+
 			from channels
-            
-            where 
+
+            where
 					channels.ID_GUILD = ID_GUILD
 				and	channels.ID_CHANN = ID_CHANN
-                
+
 			limit 1
         );
-        
+
         if (@found_chann is null) then
 			select false as value;
 		else
@@ -77,18 +77,18 @@ BEGIN
 	set @cant_guild = (
 		select distinct
 			count(guilds.ID_GUILD)
-            
+
 		from guilds
-        
+
         where
 			guilds.ID_GUILD = ID_GUILD
     );
 	set @cant_chann = (
 		select distinct
 			count(channels.ID_CHANN)
-            
+
 		from channels
-        
+
         where
 			channels.ID_CHANN = ID_CHANN
     );
@@ -102,7 +102,7 @@ BEGIN
 			GUILD_NAME
 		);
     end if;
-    
+
     if (@cant_chann = 0) then
 		insert into channels(
             ID_CHANN,
@@ -113,7 +113,7 @@ BEGIN
 			ID_GUILD,
             CHANN_NAME
         );
-        
+
         select 1 as value;
 	else
         select 0 as value;
@@ -130,28 +130,28 @@ BEGIN
 	set @id_guild = (
 		select
 			channels.ID_GUILD
-            
+
 		from channels
-        
+
         where
 			channels.ID_CHANN = ID_CHANN
-            
+
 		limit 1
     );
 
 	#delete channel
-    delete from channels 
-    where 
+    delete from channels
+    where
 			channels.ID_GUILD = @id_guild
 		and	channels.ID_CHANN = ID_CHANN;
-        
+
 	#delete guild
 	set @cant = (
 		select
 			count(channels.ID_CHANN) as cant
-            
+
 		from channels
-        
+
         where
 			channels.ID_GUILD = @id_guild
     );
@@ -160,7 +160,7 @@ BEGIN
         where
 			guild.ID_GUILD = @id_guild;
     end if;
-    
+
 END;$$
 DELIMITER ;
 
@@ -173,10 +173,10 @@ BEGIN
 	delete from channels
 	where
 		channels.ID_GUILD = ID_GUILD;
-	
+
     delete from guilds
     where
 		guilds.ID_GUILD = ID_GUILD;
-    
+
 END;$$
 DELIMITER ;

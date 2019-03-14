@@ -37,7 +37,7 @@ module Config {
   //General Bot Configuration
   export module Cmd {
     export let symbol = "&"
-    export let id_dev = "ENSERT_THE_DEV_ID_HERE"
+    export let id_dev = "INSERT_THE_DEV_ID_HERE"
 
   }
 }
