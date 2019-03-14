@@ -8,6 +8,7 @@ import cmd_kill from ">/cmd/dev/cmd_kill"
 import cmd_channel from ">/cmd/channel/cmd_channel"
 import cmd_help from ">/cmd/misc/cmd_help"
 import cmd_currency from ">/cmd/misc/cmd_currency"
+import cmd_flip from ">/cmd/misc/cmd_flip"
 
 //...and add your instances here:
 let cmd_list: Array<Command> = [
@@ -18,6 +19,7 @@ let cmd_list: Array<Command> = [
   //Normal commands
   cmd_help,
   cmd_channel,
-  cmd_currency
+  cmd_currency,
+  cmd_flip
 ]
 export default cmd_list
