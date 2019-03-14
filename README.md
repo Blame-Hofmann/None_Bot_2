@@ -1,7 +1,7 @@
 
 # Bot Discord
 
-Este es un pequeño bot para Discord, solo trae funcionalidades básicas, por lo cual sirve como punto de partida para agregar nuevas funcionalidades
+Este es un bot para Discord, el cual contiene diversos comando s de todo tipo para ser usados en la plataforma. El proyecto está en su fase inicial, por lo cual en este momento posee poquísimos comandos.
 
 ## Primeros pasos
 
@@ -45,10 +45,10 @@ export default Config
 ```
 
 A este archivo hay que asignarle sus llaves correspondientes:
-* ApiKey.discord -> API Key del BotConn
-* ApiKey.fixer -> API Key de [fixer.io](https://fixer.io/)
+* ApiKey.discord -> API Key de nuestro Bot.
+* ApiKey.fixer -> API Key de [fixer.io](https://fixer.io/).
 * symbol -> El símbolo por el cual el bot reconocerá los comandos.
-* id_dev -> ID del controlador del bot (opcional solo para ciertos comandos que lo requieran)
+* id_dev -> ID del controlador del bot (opcional solo para ciertos comandos que lo requieran).
 
 El submódulo DB contiene las credenciales de acceso para la base de datos. Ahí deben de colocarse las credenciales que corresponden a su base de datos previamente configurada. Para crear la base de datos, ejecute en MySQL el script adjunto que se encuentra en la raiz del proyecto "MySQL DB Script".
 
