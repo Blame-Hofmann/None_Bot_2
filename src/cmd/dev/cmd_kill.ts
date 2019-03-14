@@ -12,10 +12,17 @@ cmd_kill.callback = (cli, msg, args) => {
     return
   }
 
+<<<<<<< HEAD
   let txt_msg = "Buenas Noches " + msg.author + "~~ :sob:"
   let fn_kill = () => {
     console.clear()
     console.log("Buenas Noches " + msg.author.username + "~~")
+=======
+  let txt_msg = "Buenas Noches " + msg.author + "~~"
+  let fn_kill = () => {
+    console.clear()
+    console.log("Buenas Noches " + msg.author.username + "~~ :sob:")
+>>>>>>> 7819d2d64566c014811166f850185088fd423bf9
     console.log("Bot is killed...\n")
 
     cli.destroy()
