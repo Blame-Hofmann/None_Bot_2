@@ -44,11 +44,6 @@ module Config {
 export default Config
 ```
 
-Antes de modificarlo, lo marcaremos para que GIT ignore cualquier cambio hecho en dicho archivo, ejecutando el siguiente comando en la raiz del proyecto
-```
-git update-index --assume-unchanged bot_data/system/bot_conn.ts
-```
-
 A este archivo hay que asignarle sus llaves correspondientes:
 * ApiKey.discord -> API Key del BotConn
 * ApiKey.fixer -> API Key de [fixer.io](https://fixer.io/)
