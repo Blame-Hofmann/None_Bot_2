@@ -11,11 +11,11 @@ cmd_debug.cmd = ["debug", "db"]
 cmd_debug.callback = (cli, msg, args, txt) => {
   //Reject execution if the user isn't the developer
   let txt_err: string = ""
-  // if (msg.author.id != Config.Cmd.id_dev) {
-  //   txt_err = `Usted no es el desarrollador de la aplicación, no tiene acceso a este grupo de comandos.`
-  //   msg.reply(txt_err)
-  //   return
-  // }
+  if (msg.author.id != Config.Cmd.id_dev) {
+    txt_err = `Usted no es el desarrollador de la aplicación, no tiene acceso a este grupo de comandos.`
+    msg.reply(txt_err)
+    return
+  }
 
   //Reject the request when the user doesn't add arguments
   if (args.length == 0) {
