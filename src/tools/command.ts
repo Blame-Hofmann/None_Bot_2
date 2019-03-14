@@ -91,7 +91,6 @@ class Command {
       return str_log + ".-\n"
     })())
 
-
     //Execute the command
     let text = msg.content.replace(regex, "").trim()
     this.check_db(cli, msg, args, text)
@@ -99,6 +98,20 @@ class Command {
 
   //Check if this channel as in Whitelist
   private check_db(cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) {
+    //Prepare execution
+    let executeCmd = () => {
+      this._callback(cli, msg, args, text)
+      Log.writeLine("Command Executed", 2)
+      Log.writeSeparator()
+    }
+
+    //Skip Channel verification if the message is PM
+    if (msg.guild == null) {
+      executeCmd()
+      return
+    }
+
+    //Answer to que DataBase
     DB.makeQuestion(
       "get_available_channel",
       [
@@ -111,9 +124,8 @@ class Command {
           return
         }
 
-        this._callback(cli, msg, args, text)
-        Log.writeLine("Command Complete", 2)
-        Log.writeSeparator()
+        //Execute command
+        executeCmd()
       })
   }
 }

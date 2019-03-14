@@ -1,11 +1,16 @@
 import * as Discord from "discord.js"
-import Log from ">/tools/log"
 import DB from ">/tools/db"
 
 let channel_add_all = (msg: Discord.Message) => {
   let args: Array<Discord.GuildChannel> = []
   let chann_name: string = ""
+
   msg.guild.channels.forEach((item) => {
+    //Only add Text channels
+    if (item.type != "text") {
+      return
+    }
+
     args.push(item)
     chann_name += "#" + item.name.toUpperCase() + "; "
   })

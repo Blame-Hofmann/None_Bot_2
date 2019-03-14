@@ -11,8 +11,15 @@ export default cmd_channel
 
 cmd_channel.cmd = "channel"
 cmd_channel.callback = (cli, msg, args) => {
+  //Identify if is a PM
+  if (msg.guild == null) {
+    msg.reply(msg.author + ", solo se pueden administrar canales en un servidor, no tiene sentido ejecutar estos comandos por PM...")
+    return
+  }
+
+  //Check parameters
   if (args.length <= 1) {
-    msg.reply("usted no ha ingresado los parámetros suficientes para configurar los canales admitidos. Por favor consulte la guía para más información.")
+    msg.reply("Usted no ha ingresado los parámetros suficientes para configurar los canales admitidos. Por favor consulte la guía para más información.")
     return
   }
 
@@ -54,7 +61,7 @@ cmd_channel.callback = (cli, msg, args) => {
 
   //Return if the bot doesn't find any channel
   if (arr_chann.length == 0) {
-    msg.reply("los canales agregados no son válidos. Por favor consulte la guía para más información.")
+    msg.reply("Los canales agregados no son válidos. Por favor consulte la guía para más información.")
     return
   }
 
