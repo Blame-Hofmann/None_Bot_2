@@ -77,6 +77,12 @@ cmd_help.callback = (cli, msg, args) => {
         txt += "```"
         break
 
+      case "flip":
+        txt += "Comando **&kill:** ```"
+        txt += `Lanza una moneda, el resultado será cara o sello, ideal para tomar decisiones binarias.`
+        txt += "```"
+        break
+
       default:
         txt += `Lo siento ` + msg.author + ", pero ese comando no existe. Ejecute `&help` para visualizar la guía de usuario."
         break

@@ -6,7 +6,6 @@ export default cmd_flip
 cmd_flip.cmd = "flip"
 cmd_flip.callback = (cli, msg) => {
   let percent: number = Math.floor((Math.random() * 100))
-  let flip : boolean = null
   let txt: string = "Ha lanzado la moneda!!!\n"
 
   if (percent <= 49) {
