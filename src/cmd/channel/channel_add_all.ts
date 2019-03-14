@@ -38,7 +38,7 @@ let channel_add_all = (msg: Discord.Message) => {
 
     DB.makeQuestion("set_available_channel", param, (res) => {
 
-    }, (err) => {
+    }, () => {
       msg.reply("`#" + args[i].name.toUpperCase() + "` tuvo un ERROR!")
 
     }, () => {

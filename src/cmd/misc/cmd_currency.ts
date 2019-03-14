@@ -7,18 +7,19 @@ import { Decimal } from "decimal.js"
 let cmd_currency = new Command()
 export default cmd_currency
 
-cmd_currency.cmd = "money"
+cmd_currency.cmd = ["money", "mn"]
 cmd_currency.callback = (cli, msg, args) => {
   //If no parameters
+  let txt_help: string = "Consulte `" + Config.Cmd.symbol + "help " + cmd_currency.cmd[0] + "` para más detalle~"
   if (args.length == 0) {
-    msg.reply("Usted no ha ingresado ningún parámetro, no sea pendejo~")
+    msg.reply("Usted no ha ingresado ningún parámetro. " + txt_help)
     return
   }
 
   //If the number is not valid...
   let num_in: string = parseNum(args[0])
   if (num_in == null) {
-    msg.reply("El valor ingresado `$ " + args[0] + "` no es válido, no sea pendejo~")
+    msg.reply("El valor ingresado `$ " + args[0] + "` no es válido. " + txt_help)
     return
   }
 

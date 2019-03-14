@@ -9,7 +9,7 @@ import channel_del_all from "./channel_del_all"
 let cmd_channel = new Command()
 export default cmd_channel
 
-cmd_channel.cmd = "channel"
+cmd_channel.cmd = ["channel", "ch"]
 cmd_channel.callback = (cli, msg, args) => {
   //Identify if is a PM
   if (msg.guild == null) {

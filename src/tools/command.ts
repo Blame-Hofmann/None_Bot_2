@@ -4,12 +4,16 @@ import Log from ">/tools/log"
 import DB from ">/tools/db"
 
 class Command {
-  private _cmd: string
+  private _cmd: Array<string>
   public get cmd() {
     return this._cmd
   }
-  public set cmd(value: string) {
-    this._cmd = value.toLowerCase()
+  public set cmd(value: Array<string>) {
+    value.forEach(item => {
+      item = item.toLowerCase()
+    })
+
+    this._cmd = value
   }
 
   private _callback: (cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) => void
@@ -30,11 +34,15 @@ class Command {
   Build a new instance of Commands
   @param cmd [optional] A string with the name of the command
   */
-  constructor(cmd?: string) {
+  constructor(cmd?: Array<string>) {
     this._callback = null
 
     if (cmd != null) {
-      this._cmd = cmd.toLowerCase()
+      cmd.forEach(item => {
+        item = item.toLowerCase()
+      })
+
+      this._cmd = cmd
     } else {
       this._cmd = null
     }
@@ -48,15 +56,29 @@ class Command {
     let content: string = msg.content.split(/\s/gi)[0]
 
     //Return if the command don't match
-    let regex = new RegExp(`^${symbol}${this._cmd}`, "gi")
-    if (content.match(regex) == null) {
+    let found: boolean = false
+    let text_out: string = null
+    this._cmd.forEach(command => {
+      let regex = new RegExp(`^${symbol}${command}`, "gi")
+
+      if (content.match(regex) != null) {
+        //Make output text
+        text_out = msg.content.replace(regex, "").trim()
+        found = true
+      }
+    })
+
+    if (found == false) {
       return
     }
 
     //Make an Array with arguments of the command
+    let ref: Array<string> = msg.content.split(/\s+/gi)
     let args: Array<string> = []
-    content = content.replace(/\s+/gi, " ")
-    content.split(" ").forEach((str, i) => {
+
+    ref.forEach((str, i) => {
+      console.log(`ref[${i}] = ${str}`)
+
       if (i != 0) {
         args.push(str.trim())
       }
@@ -92,8 +114,7 @@ class Command {
     })())
 
     //Execute the command
-    let text = msg.content.replace(regex, "").trim()
-    this.check_db(cli, msg, args, text)
+    this.check_db(cli, msg, args, text_out)
   }
 
   //Check if this channel as in Whitelist

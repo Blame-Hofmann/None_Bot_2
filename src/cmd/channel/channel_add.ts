@@ -1,5 +1,4 @@
 import * as Discord from "discord.js"
-import Log from ">/tools/log"
 import DB from ">/tools/db"
 
 let channel_add = (msg: Discord.Message, args: Array<Discord.GuildChannel>) => {
@@ -32,7 +31,7 @@ let channel_add = (msg: Discord.Message, args: Array<Discord.GuildChannel>) => {
 
       }
 
-    }, (err) => {
+    }, () => {
       msg.reply("`#" + args[i].name.toUpperCase() + "` tuvo un ERROR!")
 
     }, () => {
