@@ -33,7 +33,7 @@ export module Log {
      * Escribe una linea de separación.
      */
     export function writeSeparator(): void {
-        console.log(`-----------------------------------------------------------------\n`)
+        console.log(`-----------------------------------------------------------------------\n`)
     }
 
     /**

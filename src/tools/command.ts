@@ -77,8 +77,6 @@ class Command {
     let args: Array<string> = []
 
     ref.forEach((str, i) => {
-      console.log(`ref[${i}] = ${str}`)
-
       if (i != 0) {
         args.push(str.trim())
       }
