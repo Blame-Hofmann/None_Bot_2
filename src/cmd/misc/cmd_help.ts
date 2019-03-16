@@ -29,6 +29,7 @@ cmd_help.callback = (cli, msg, args) => {
   } else {
     //Guía específica para cada comando
     switch (args[0].toLowerCase()) {
+      case "ch":
       case "channel":
         txt += "Comando **&channel - &ch:** ```"
         txt += `Por defecto, cuando este bot es agregado al servidor, éste podrá escuchar los comandos en todos los canales a los cuales tiene acceso. `
@@ -48,6 +49,8 @@ cmd_help.callback = (cli, msg, args) => {
         txt += "```"
 
         break
+
+      case "mn":
       case "money":
         txt += "Comando **&money - &mn:** ```"
         txt += `Este comando permite realizar conversiones de divisas utilizando los montos actualizados desde un servidor externo el cual gestiona tales cambios. `
@@ -65,6 +68,7 @@ cmd_help.callback = (cli, msg, args) => {
         txt += "```"
         break
 
+      case "db":
       case "debug":
         txt += "Comando **&debug - &dd:** ```"
         txt += `Funciones de depuración, disponibles únicamente para el desarrollador del bot, su sintaxis:\n`
@@ -81,6 +85,7 @@ cmd_help.callback = (cli, msg, args) => {
         txt += "```"
         break
 
+      case "ff":
       case "flip":
         txt += "Comando **&flip - &ff:** ```"
         txt += `Lanza una moneda, el resultado será cara o sello, ideal para tomar decisiones binarias.`
