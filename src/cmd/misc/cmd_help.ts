@@ -65,7 +65,7 @@ cmd_help.callback = (cli, msg, args) => {
         txt += "```"
         break
 
-      case "test":
+      case "debug":
         txt += "Comando **&debug - &dd:** ```"
         txt += `Funciones de depuración, disponibles únicamente para el desarrollador del bot, su sintaxis:\n`
         txt += `-> &debug [option] [arg_1] [arg_2] [arg_3] ... [arg_n]\n\n`
