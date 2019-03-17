@@ -1,4 +1,5 @@
 import Command from ">/tools/command"
+import Global from ">/global"
 import Ajax from ">/tools/ajax"
 import Config from ">/config"
 import NumConv from ">/tools/num_conv"
@@ -8,7 +9,7 @@ let cmd_currency = new Command()
 export default cmd_currency
 
 cmd_currency.cmd = ["money", "mn"]
-cmd_currency.callback = (cli, msg, args) => {
+cmd_currency.callback = (msg, args) => {
   //If no parameters
   let txt_help: string = "Consulte `" + Config.Cmd.symbol + "help " + cmd_currency.cmd[0] + "` para más detalle~"
   if (args.length == 0) {
@@ -47,7 +48,7 @@ cmd_currency.callback = (cli, msg, args) => {
       error_msg += `Código: ${data.error.code}\n\n`
       error_msg += `Descripción: ${data.error.code}` + "```"
 
-      cli.fetchUser(Config.Cmd.id_dev).then(user => {
+      Global.cli.fetchUser(Config.Cmd.id_dev).then(user => {
         user.send(error_msg)
       }, () => {
         msg.reply("Lamentablemente no me puedo comunicar con el desarrollador :sob:")
@@ -104,7 +105,7 @@ cmd_currency.callback = (cli, msg, args) => {
     strReply += `Se le notificará al desarrollador sobre dicho problema\n`
 
     msg.reply(strReply)
-    cli.fetchUser(Config.Cmd.id_dev).then(devMsg => {
+    Global.cli.fetchUser(Config.Cmd.id_dev).then(devMsg => {
         strReply  = msg.author + `, hay un problema con http://data.fixer.io/` + `\n`
         strReply += `de parte de ellos. Deberías revisar en cuanto antes ese problema...`
 

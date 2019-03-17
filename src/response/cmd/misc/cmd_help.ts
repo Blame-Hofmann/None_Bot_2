@@ -5,7 +5,7 @@ let cmd_help = new Command()
 export default cmd_help
 
 cmd_help.cmd = ["help", "hh"]
-cmd_help.callback = (cli, msg, args) => {
+cmd_help.callback = (msg, args) => {
   let txt: string = ""
 
   if (args.length == 0) {

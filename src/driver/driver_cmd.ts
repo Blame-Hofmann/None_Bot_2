@@ -1,8 +1,8 @@
 import * as Discord from "discord.js"
 import Config from ">/config"
-import cmd_list from ">/cmd_list"
+import arr_cmd from "./arr_cmd"
 
-let CmdDriver = (cli: Discord.Client, msg: Discord.Message) => {
+let driverCmd = (cli: Discord.Client, msg: Discord.Message) => {
   //Ignore Self Messages
   if (cli.user == msg.author) {
     return
@@ -15,8 +15,8 @@ let CmdDriver = (cli: Discord.Client, msg: Discord.Message) => {
   }
 
   //Search the Command
-  cmd_list.forEach(item => {
-    item.exec(cli, msg)
+  arr_cmd.forEach(item => {
+    item.exec(msg)
   })
 }
-export default CmdDriver
+export default driverCmd

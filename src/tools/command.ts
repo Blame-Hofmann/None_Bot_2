@@ -16,7 +16,7 @@ class Command {
     this._cmd = value
   }
 
-  private _callback: (cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) => void
+  private _callback: (msg: Discord.Message, args?: Array<string>, text?: string) => void
   public get callback() {
     return this._callback
   }
@@ -26,7 +26,7 @@ class Command {
   @param msg It's que Message sended to the Bot
   @param args It's an Array with all arguments passet to the Bot
   */
-  public set callback(value: (cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) => void) {
+  public set callback(value: (msg: Discord.Message, args?: Array<string>, text?: string) => void) {
     this._callback = value
   }
 
@@ -51,7 +51,7 @@ class Command {
   /**
   This function is used only for CmdDriver
   */
-  public exec(cli: Discord.Client, msg: Discord.Message) {
+  public exec(msg: Discord.Message) {
     let symbol: string = Config.Cmd.symbol
     let content: string = msg.content.split(/\s/gi)[0]
 
@@ -112,14 +112,14 @@ class Command {
     })())
 
     //Execute the command
-    this.check_db(cli, msg, args, text_out)
+    this.check_db(msg, args, text_out)
   }
 
   //Check if this channel as in Whitelist
-  private check_db(cli: Discord.Client, msg: Discord.Message, args?: Array<string>, text?: string) {
+  private check_db(msg: Discord.Message, args?: Array<string>, text?: string) {
     //Prepare execution
     let executeCmd = () => {
-      this._callback(cli, msg, args, text)
+      this._callback(msg, args, text)
       Log.writeLine("Command Executed", 2)
       Log.writeSeparator()
     }

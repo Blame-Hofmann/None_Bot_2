@@ -4,7 +4,7 @@ let cmd_flip = new Command()
 export default cmd_flip
 
 cmd_flip.cmd = ["flip", "ff"]
-cmd_flip.callback = (cli, msg) => {
+cmd_flip.callback = (msg) => {
   let percent: number = Math.floor((Math.random() * 100))
   let txt: string = "Ha lanzado la moneda!!!\n"
 

@@ -1,4 +1,5 @@
 import Command from ">/tools/command"
+import Global from ">/global"
 import Config from ">/config"
 
 import cmd_debug_kill from "./cmd_debug_kill"
@@ -8,7 +9,7 @@ let cmd_debug = new Command()
 export default cmd_debug
 
 cmd_debug.cmd = ["debug", "db"]
-cmd_debug.callback = (cli, msg, args, txt) => {
+cmd_debug.callback = (msg, args, txt) => {
   //Reject execution if the user isn't the developer
   let txt_err: string = ""
   if (msg.author.id != Config.Cmd.id_dev) {
@@ -28,11 +29,11 @@ cmd_debug.callback = (cli, msg, args, txt) => {
   //search subcommands
   switch (args[0].toLowerCase()) {
     case "kill":
-      cmd_debug_kill(cli, msg)
+      cmd_debug_kill(Global.cli, msg)
       break
 
     case "test":
-      cmd_debug_test(cli, msg, args)
+      cmd_debug_test(Global.cli, msg, args)
       break
 
     default:

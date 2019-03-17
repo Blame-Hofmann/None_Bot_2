@@ -10,7 +10,7 @@ let cmd_channel = new Command()
 export default cmd_channel
 
 cmd_channel.cmd = ["channel", "ch"]
-cmd_channel.callback = (cli, msg, args) => {
+cmd_channel.callback = (msg, args) => {
   //Identify if is a PM
   if (msg.guild == null) {
     msg.reply(msg.author + ", solo se pueden administrar canales en un servidor, no tiene sentido ejecutar estos comandos por PM...")
