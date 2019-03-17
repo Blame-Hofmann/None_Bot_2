@@ -1,4 +1,5 @@
 import * as Discord from "discord.js"
+import Global from ">/global"
 import Config from ">/config"
 import Log from ">/tools/log"
 import DB from ">/tools/db"
@@ -126,7 +127,12 @@ class Command {
 
     //Skip Channel verification if the message is PM
     if (msg.guild == null) {
-      executeCmd()
+      msg.reply("Test~").then(() => {
+        Global.cli.user.lastMessage.delete().catch(() => {})
+
+        executeCmd()
+      })
+
       return
     }
 
