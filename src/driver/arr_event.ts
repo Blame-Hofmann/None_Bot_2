@@ -1,13 +1,15 @@
 import CliEvent from ">/tools/cli_event"
 
 //Add events Here
-import Connected from ">/response/events/connected"
-import ConnError from ">/response/events/conn_error"
-import Message from ">/response/events/message"
+import EveConnected from ">/response/events/eve_connected"
+import EveConnError from ">/response/events/eve_conn_error"
+import EveMessage from ">/response/events/eve_message"
+import EveChangeImg from ">/response/events/eve_change_img"
 
 let arr_event: Array<CliEvent> = [
-  Connected,
-  ConnError,
-  Message
+  EveConnected,
+  EveConnError,
+  EveMessage,
+  EveChangeImg
 ]
 export default arr_event

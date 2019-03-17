@@ -3,10 +3,10 @@ import CliEvent from ">/tools/cli_event"
 import driverCmd from ">/driver/driver_cmd"
 import Global from ">/global"
 
-let Message = new CliEvent()
-export default Message
+let EveMessage = new CliEvent()
+export default EveMessage
 
-Message.name = [ "message" ]
-Message.callback = (msg: Discord.Message) => {
+EveMessage.name = [ "message" ]
+EveMessage.callback = (msg: Discord.Message) => {
   driverCmd(Global.cli, msg)
 }

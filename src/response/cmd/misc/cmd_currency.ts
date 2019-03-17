@@ -1,6 +1,6 @@
 import Command from ">/tools/command"
 import Global from ">/global"
-import Ajax from ">/tools/ajax"
+import AjaxHTTP from ">/tools/ajax_http"
 import Config from ">/config"
 import NumConv from ">/tools/num_conv"
 import { Decimal } from "decimal.js"
@@ -34,11 +34,11 @@ cmd_currency.callback = (msg, args) => {
   //Making the URL
   let strUrl: string = ""
   strUrl += "http://data.fixer.io/api/latest"
-  strUrl += `?access_key=${Config.ApiKey.Fixer}`
+  strUrl += `?access_key=${Config.ApiKey.fixer}`
   strUrl += `&symbols=${options.from},${options.to}`
   strUrl += `&format=1`
 
-  Ajax.get(strUrl, (res, data) => {
+  AjaxHTTP.get(strUrl, (res, data) => {
     if (data.success == false) {
       let error_msg = "En estos momentos tenemos problemas con el servidor proveedor de información de divisas. "
       error_msg += "Me contactaré con el desarrollador para que solucione dicho problema."

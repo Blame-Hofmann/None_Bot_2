@@ -1,14 +1,14 @@
 import * as http from "http"
 
-module Ajax {
+module AjaxHTTP {
   //
-  let fnCallback: (msg: http.IncomingMessage, data: any) => void
+  let fnCallback: (res: http.IncomingMessage, data: any) => void
 
   //Función que arma los datos a ejecutar
-  let makeRequest = (msg: http.IncomingMessage) => {
+  let makeRequest = (res: http.IncomingMessage) => {
     let arr_byte: string | Buffer = null
 
-    msg.on("data", chunk => {
+    res.on("data", chunk => {
       if (arr_byte == null) {
         arr_byte = chunk
       } else {
@@ -16,7 +16,7 @@ module Ajax {
       }
     })
 
-    msg.on("end", () => {
+    res.on("end", () => {
       let data: any
       if (Buffer.isBuffer(arr_byte) == true) {
         data = arr_byte.toString("utf8")
@@ -29,11 +29,11 @@ module Ajax {
       } catch (err) {
       }
 
-      fnCallback(msg, data)
+      fnCallback(res, data)
     })
   }
 
-  export let get = (url: string, callback: (msg: http.IncomingMessage, data: any) => void, error?: (err?: Error) => void) => {
+  export let get = (url: string, callback: (res: http.IncomingMessage, data: any) => void, error?: (err?: Error) => void) => {
     fnCallback = callback
     http.get(url, makeRequest).on("error", (err) => {
       if (error != null) {
@@ -42,7 +42,7 @@ module Ajax {
     })
   }
 
-  export let post = (url: string, callback: (msg: http.IncomingMessage, data: any) => void, error?: (err?: Error) => void) => {
+  export let post = (url: string, callback: (res: http.IncomingMessage, data: any) => void, error?: (err?: Error) => void) => {
     let options: http.RequestOptions = {}
     options.method = "POST"
 
@@ -54,4 +54,4 @@ module Ajax {
     })
   }
 }
-export default Ajax
+export default AjaxHTTP

@@ -16,7 +16,8 @@ cmd_help.callback = (msg, args) => {
     txt += `&debug     -> [db] Utilidades disponibles para el desarrollador\n`
     txt += `&channel   -> [ch] Configuración de los canales habilitados para el funcionamiento del Bot.\n`
     txt += `&money     -> [mn] Conversor de Divisas.\n`
-    txt += `&flip      -> [ff] Lanza una moneda.\n\n`
+    txt += `&flip      -> [ff] Lanza una moneda.\n`
+    txt += `&image     -> [im] Realiza una búsqueda de imágenes.\n\n`
 
     txt += `Para consultar por un comando específico:\n`
     txt += `-> &help [cmd]\n`
@@ -89,6 +90,17 @@ cmd_help.callback = (msg, args) => {
       case "flip":
         txt += "Comando **&flip - &ff:** ```"
         txt += `Lanza una moneda, el resultado será cara o sello, ideal para tomar decisiones binarias.`
+        txt += "```"
+        break
+
+      case "im":
+      case "image":
+        txt += "Comando **&image - &im:** ```"
+        txt += `Realiza una búsqueda de imágenes en Google, se utiliza de la siguiente forma:\n\n`
+        txt += `-> &image [lo_que_sea]\n\n`
+
+        txt += "En donde:\n"
+        txt += "-> [lo_que_sea] -> Palabras claves con las cuales realizar la búsqueda."
         txt += "```"
         break
 

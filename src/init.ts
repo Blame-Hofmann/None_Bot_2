@@ -17,5 +17,5 @@ console.log(`-------=============>>>>NONE BOT ver0.0.1 [DEV]<<<<=============---
 Log.writeLine(`Loggin...`, 1)
 
 //Connect to Discord Server
-import ConnError from ">/response/events/conn_error"
-Global.cli.login(Config.ApiKey.discord).catch(ConnError.callback)
+import EveConnError from ">/response/events/eve_conn_error"
+Global.cli.login(Config.ApiKey.discord).catch(EveConnError.callback)

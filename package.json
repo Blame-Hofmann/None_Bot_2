@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/Blame-Hofmann/None_Bot_2#readme",
   "dependencies": {
+    "@types/google-images": "^2.1.0",
     "@types/module-alias": "^2.0.0",
     "@types/moment": "^2.13.0",
     "@types/mysql": "^2.15.5",
     "decimal.js": "^10.1.1",
     "discord.js": "^11.4.2",
+    "google-images": "^2.1.0",
     "module-alias": "^2.2.0",
     "moment": "^2.24.0",
     "mysql": "^2.16.0"

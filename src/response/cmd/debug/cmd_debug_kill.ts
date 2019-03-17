@@ -1,4 +1,5 @@
 import * as Discord from "discord.js"
+import Global from ">/global"
 
 let cmd_debug_kill = (cli: Discord.Client, msg: Discord.Message) => {
   //Kill the Bot
@@ -8,6 +9,7 @@ let cmd_debug_kill = (cli: Discord.Client, msg: Discord.Message) => {
     console.log("Buenas Noches " + msg.author.username + "~~")
     console.log("Bot is killed...\n")
 
+    //Kill 'em All'
     cli.destroy()
     process.exit()
   }

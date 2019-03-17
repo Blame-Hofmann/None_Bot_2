@@ -2,11 +2,11 @@ import CliEvent from ">/tools/cli_event"
 import Log from ">/tools/log"
 import Global from ">/Global"
 
-let Connected = new CliEvent()
-export default Connected
+let EveConnected = new CliEvent()
+export default EveConnected
 
-Connected.name = [ "ready", "resume" ]
-Connected.callback = () => {
+EveConnected.name = [ "ready", "resume" ]
+EveConnected.callback = () => {
   Log.writeLine("Connection Successfull :^)", 2)
   Log.writeLine("Listening...")
   Log.writeSeparator()
