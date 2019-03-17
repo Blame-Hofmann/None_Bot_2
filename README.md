@@ -38,6 +38,7 @@ module Config {
   export module Cmd {
     export let symbol = "&"
     export let id_dev = "INSERT_THE_DEV_ID_HERE"
+    export let conn_sec = 5
 
   }
 }
@@ -46,9 +47,12 @@ export default Config
 
 A este archivo hay que asignarle sus llaves correspondientes:
 * ApiKey.discord -> API Key de nuestro Bot.
-* ApiKey.fixer -> API Key de [fixer.io](https://fixer.io/).
-* symbol -> El símbolo por el cual el bot reconocerá los comandos.
-* id_dev -> ID del controlador del bot (opcional solo para ciertos comandos que lo requieran).
+* ApiKey.fixer   -> API Key de [fixer.io](https://fixer.io/).
+
+También se pueden configurar aspectos propios del funcionamiento del bot:
+* symbol         -> El símbolo por el cual el bot reconocerá los comandos.
+* id_dev         -> ID del controlador del bot (opcional solo para ciertos comandos que lo requieran).
+* conn_sec       -> Tiempo de espera (segundos) para reconectar.
 
 ## Base de Datos
 El submódulo DB contiene las credenciales de acceso para la base de datos. Ahí deben de colocarse las credenciales que corresponden a su base de datos previamente configurada. Para crear la base de datos, ejecute en MySQL el script adjunto que se encuentra en la raiz del proyecto "MySQL DB Script".
