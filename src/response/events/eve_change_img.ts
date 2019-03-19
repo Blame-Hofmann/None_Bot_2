@@ -16,7 +16,7 @@ eve_change_img.callback = (reaction: Discord.MessageReaction, user: Discord.User
   if (user.id == Global.cli.user.id) {
     return
   } else if (elem == null) {
-    reaction.remove()
+    reaction.remove(user)
     return
   } else if (reaction.message.id != elem.message.id) {
     return
