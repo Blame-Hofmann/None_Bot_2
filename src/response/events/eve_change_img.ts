@@ -11,7 +11,14 @@ export default eve_change_img
 eve_change_img.name = [ "messageReactionAdd" ]
 eve_change_img.callback = (reaction: Discord.MessageReaction, user: Discord.User) => {
   let elem: iImgSearch = Global.cache_img[user.id]
-  if (elem == null) {
+
+  //User Filters
+  if (user.id == Global.cli.user.id) {
+    return
+  } else if (elem == null) {
+    reaction.remove()
+    return
+  } else if (reaction.message.id != elem.message.id) {
     return
   }
 
@@ -21,6 +28,8 @@ eve_change_img.callback = (reaction: Discord.MessageReaction, user: Discord.User
   } else if (reaction.emoji.name == "▶") {
     reaction.remove(user.id)
     goto_right(elem)
+  } else if (reaction.emoji.name == "❌") {
+    goto_delete(elem)
   }
 }
 
@@ -99,4 +108,13 @@ let goto_right = (elem: iImgSearch) => {
       edit_embed(elem)
     })
   }
+}
+
+let goto_delete = (elem: iImgSearch) => {
+  let user_id = elem.author.id
+
+  elem.message.delete().then(() => {
+    clearTimeout(elem.timer)
+    delete Global.cache_img[user_id]
+  })
 }
