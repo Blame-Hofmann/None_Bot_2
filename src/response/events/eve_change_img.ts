@@ -160,6 +160,11 @@ let fail = (elem: iImgSearch) => {
 
     elem.message.edit(msg_embed)
     elem.message.clearReactions()
+    
+    Object.keys(Global.cache_img).forEach(key => {
+      clearTimeout(Global.cache_img[key].timer)
+      delete Global.cache_img[key]
+    })
   }
 
   return fn_error

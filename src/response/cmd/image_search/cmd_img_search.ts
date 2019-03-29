@@ -78,6 +78,11 @@ cmd_img_search.callback = (msg, args, txt) => {
       } else {
         msg.reply("Lo siento pero hubo un problema técnico con la búsqueda...")
       }
+
+      Object.keys(Global.cache_img).forEach(key => {
+        clearTimeout(Global.cache_img[key].timer)
+        delete Global.cache_img[key]
+      })
     })
   })
 }
