@@ -102,7 +102,7 @@ let goto_left = (elem: iImgSearch) => {
       console.log("")
 
       edit_embed(elem)
-    })
+    }, fail(elem))
   }
 }
 
@@ -128,7 +128,7 @@ let goto_right = (elem: iImgSearch) => {
       console.log("")
 
       edit_embed(elem)
-    })
+    }, fail(elem))
   }
 }
 
@@ -139,4 +139,28 @@ let goto_delete = (elem: iImgSearch) => {
     clearTimeout(elem.timer)
     delete Global.cache_img[msg_id]
   })
+}
+
+let fail = (elem: iImgSearch) => {
+  let fn_error = (error: any) => {
+    let msg_embed = {
+      embed: {
+        color: 14063660,
+        author: {
+          name: elem.author.username + " ERROR",
+          icon_url: elem.author.avatarURL
+        },
+        description: "Hubo un error desconocido con los servidores de Google... :frowning:"
+      }
+    }
+
+    if (error.statusCode == 403) {
+      msg_embed.embed.description = "He superado el límite de búsquedas con las que me ha restringido Google :frowning:"
+    }
+
+    elem.message.edit(msg_embed)
+    elem.message.clearReactions()
+  }
+
+  return fn_error
 }
