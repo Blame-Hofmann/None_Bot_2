@@ -5,7 +5,7 @@ import Config from ">/config"
 let get_images = (txt: string, page: number, callback: (urls: Array<string>) => void) => {
   let seeker = new GoogleImages(Config.ApiKey.google.id, Config.ApiKey.google.apiKey)
   seeker.search(txt, {
-    safe: "off",
+    safe: "high",
     page: ((page - 1) * 10) + 1
   }).then(images => {
     let arr_url: Array<string> = []
