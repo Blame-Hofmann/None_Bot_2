@@ -1,5 +1,6 @@
 import GoogleImages from "google-images"
 import * as https from "https"
+import Log from ">/tools/log"
 import Config from ">/config"
 
 let get_images = (txt: string, page: number, callback: (urls: Array<string>) => void) => {
@@ -49,6 +50,11 @@ let get_images = (txt: string, page: number, callback: (urls: Array<string>) => 
 
     //Ejecutar el procesado de imágenes
     next()
+  }).catch(error => {
+    Log.writeLine("Google no pudo realizar la búsqueda de Imágenes.", 3)
+    Log.writeLine("Detalles:")
+    console.log(error)
+    console.log("")
   })
 }
 
