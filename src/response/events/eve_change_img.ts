@@ -10,31 +10,44 @@ export default eve_change_img
 
 eve_change_img.name = [ "messageReactionAdd" ]
 eve_change_img.callback = (reaction: Discord.MessageReaction, user: Discord.User) => {
-  let elem: iImgSearch = Global.cache_img[user.id]
+  let elem: iImgSearch = Global.cache_img[reaction.message.id]
 
   //User Filters
   if (user.id == Global.cli.user.id) {
     return
   } else if (elem == null) {
-    reaction.remove(user)
     return
-  } else if (reaction.message.id != elem.message.id) {
+  } else if (user.id != elem.author.id) {
+    reaction.remove(user.id)
     return
   }
 
-  if (reaction.emoji.name == "◀") {
-    reaction.remove(user.id)
-    goto_left(elem)
-  } else if (reaction.emoji.name == "▶") {
-    reaction.remove(user.id)
-    goto_right(elem)
-  } else if (reaction.emoji.name == "❌") {
-    goto_delete(elem)
-  }
+  elem.message.edit({
+    embed: {
+        color: 14063660,
+        author: {
+          name: elem.author.username + " buscó...",
+          icon_url: elem.author.avatarURL
+        },
+        description: "Espere un momento por favor..."
+      }
+    }).then(() => {
+    clearTimeout(elem.timer)
+    if (reaction.emoji.name == "◀") {
+      reaction.remove(user.id)
+      goto_left(elem)
+    } else if (reaction.emoji.name == "▶") {
+      reaction.remove(user.id)
+      goto_right(elem)
+    } else if (reaction.emoji.name == "❌") {
+      goto_delete(elem)
+    }
+  })
 }
 
 let edit_embed = (elem: iImgSearch) => {
   console.log(`Mostrando Imagen Nro ${elem.position + 1}/${elem.urls.length}, pág ${elem.page}`)
+  let msg_id = elem.message.id
 
   let embed = {
     embed: {
@@ -50,8 +63,15 @@ let edit_embed = (elem: iImgSearch) => {
     }
   }
 
-  elem.timer.refresh()
   elem.message.edit(embed)
+  elem.timer = setTimeout(() => {
+    if (Global.cache_img[msg_id] != null) {
+      Global.cache_img[msg_id].message.clearReactions().then(() => {
+        console.log("Killed! " + Global.cache_img[msg_id].search)
+        delete Global.cache_img[msg_id]
+      })
+    }
+  }, 30 * 1000)
 }
 
 let goto_left = (elem: iImgSearch) => {
@@ -64,15 +84,17 @@ let goto_left = (elem: iImgSearch) => {
     edit_embed(elem)
 
   } else {
-    get_images(elem.search, elem.page - 1, urls => {
+    elem.page -= 1
+
+    get_images(elem.search, elem.page, urls => {
       if (urls.length == 0) {
         return
       }
 
-      elem.page -= 1
       elem.position = urls.length - 1
       elem.urls = urls
 
+      //Only for Log Purposes
       console.log("\nLista de Urls")
       elem.urls.forEach((url, i) => {
         console.log(`url nro ${i + 1} = ${url}`)
@@ -90,13 +112,13 @@ let goto_right = (elem: iImgSearch) => {
     edit_embed(elem)
 
   } else {
-    get_images(elem.search, elem.page + 1, urls => {
+    elem.page += 1
+    elem.position = 0
+
+    get_images(elem.search, elem.page, urls => {
       if (urls.length == 0) {
         return
       }
-
-      elem.page += 1
-      elem.position = 0
       elem.urls = urls
 
       console.log("\nLista de Urls")
@@ -111,10 +133,10 @@ let goto_right = (elem: iImgSearch) => {
 }
 
 let goto_delete = (elem: iImgSearch) => {
-  let user_id = elem.author.id
+  let msg_id = elem.message.id
 
   elem.message.delete().then(() => {
     clearTimeout(elem.timer)
-    delete Global.cache_img[user_id]
+    delete Global.cache_img[msg_id]
   })
 }
