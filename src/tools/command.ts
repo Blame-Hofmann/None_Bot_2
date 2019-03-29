@@ -60,7 +60,7 @@ class Command {
     let found: boolean = false
     let text_out: string = null
     this._cmd.forEach(command => {
-      let regex = new RegExp(`^${symbol}${command}`, "gi")
+      let regex = new RegExp(`^${symbol}${command}(\\s+|$)`, "gi")
 
       if (content.match(regex) != null) {
         //Make output text
