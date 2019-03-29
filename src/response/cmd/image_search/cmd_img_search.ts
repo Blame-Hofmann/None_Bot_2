@@ -70,6 +70,14 @@ cmd_img_search.callback = (msg, args, txt) => {
           })
         })
       })
+    }, error => {
+      msg_wait.delete()
+
+      if (error.statusCode == 403) {
+        msg.reply("Lo siento pero se ha sobrepasado el límite de búsquedas que me deja hacer el Google... :frowning:")
+      } else {
+        msg.reply("Lo siento pero hubo un problema técnico con la búsqueda...")
+      }
     })
   })
 }

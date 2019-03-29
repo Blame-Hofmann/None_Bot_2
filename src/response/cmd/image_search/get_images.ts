@@ -3,7 +3,7 @@ import * as https from "https"
 import Log from ">/tools/log"
 import Config from ">/config"
 
-let get_images = (txt: string, page: number, callback: (urls: Array<string>) => void) => {
+let get_images = (txt: string, page: number, callback: (urls: Array<string>) => void, fail?: (error: iGoogleError) => void) => {
   let seeker = new GoogleImages(Config.ApiKey.google.id, Config.ApiKey.google.apiKey)
   seeker.search(txt, {
     safe: "high",
@@ -50,12 +50,23 @@ let get_images = (txt: string, page: number, callback: (urls: Array<string>) => 
 
     //Ejecutar el procesado de imágenes
     next()
-  }).catch(error => {
+  }).catch((error: iGoogleError) => {
     Log.writeLine("Google no pudo realizar la búsqueda de Imágenes.", 3)
-    Log.writeLine("Detalles:")
-    console.log(error)
-    console.log("")
+    Log.writeLine(`[${error.statusCode}] - ${error.statusMessage}`)
+
+    fail(error)
   })
+}
+
+interface iGoogleError {
+  HTTPError: string;
+  message: string;
+  host: string;
+  hostname: string;
+  method: "GET" | "POST";
+  path: string;
+  statusCode: number;
+  statusMessage: string;
 }
 
 export default get_images
