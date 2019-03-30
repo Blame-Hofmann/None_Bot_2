@@ -71,7 +71,7 @@ cmd_help.callback = (msg, args) => {
         txt += `-> [moneda_2] = Corresponde amoneda de origen en formato ISO (3 letras en mayúsculas).\n\n`
 
         txt += `Ejemplo:\n`
-        txt += `-> &money 125.5 CLP a USD`
+        txt += `-> &money 125.5 CLP a USD\n`
         txt += `-> &mn 125.5 CLP a USD`
         txt += "```"
         break
@@ -123,8 +123,13 @@ cmd_help.callback = (msg, args) => {
         txt += "-> &av [usuario?]\n\n"
 
         txt += "En donde:\n"
-        txt += "-> [usuario?] -> Citar al usuario citado (opcional)."
+        txt += "-> [usuario?] -> Citar al usuario citado (opcional).\n\n"
 
+        txt += "Ejemplo:\n"
+        txt += "-> &avatar\n"
+        txt += "-> &av\n"
+        txt += "-> &avatar @user\n"
+        txt += "-> &av @user\n"
         txt += "```"
         break
 
