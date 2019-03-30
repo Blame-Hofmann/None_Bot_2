@@ -17,7 +17,8 @@ cmd_help.callback = (msg, args) => {
     txt += `&channel   -> [ch] Configuración de los canales habilitados para el funcionamiento del Bot.\n`
     txt += `&money     -> [mn] Conversor de Divisas.\n`
     txt += `&flip      -> [ff] Lanza una moneda.\n`
-    txt += `&image     -> [im] Realiza una búsqueda de imágenes.\n\n`
+    txt += `&image     -> [im] Realiza una búsqueda de imágenes.\n`
+    txt += `&avatar    -> [av] Muestra tu avatar o el avatar de alguien más.\n\n`
 
     txt += `Para consultar por un comando específico:\n`
     txt += `-> &help [cmd]\n`
