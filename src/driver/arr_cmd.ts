@@ -7,6 +7,7 @@ import cmd_help from ">/response/cmd/misc/cmd_help"
 import cmd_currency from ">/response/cmd/misc/cmd_currency"
 import cmd_flip from ">/response/cmd/misc/cmd_flip"
 import cmd_img_search from ">/response/cmd/image_search/cmd_img_search"
+import cmd_avatar from ">/response/cmd/misc/cmd_avatar"
 
 //...and add your instances here:
 let arr_cmd: Array<Command> = [
@@ -15,6 +16,7 @@ let arr_cmd: Array<Command> = [
   cmd_help,
   cmd_currency,
   cmd_flip,
-  cmd_img_search
+  cmd_img_search,
+  cmd_avatar
 ]
 export default arr_cmd

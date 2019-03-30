@@ -40,13 +40,17 @@ cmd_help.callback = (msg, args) => {
 
         txt += `Para agregar uno o varios canales a la WhiteList, ejecute:\n`
         txt += `-> &channel add [#chann-1], [#chann-2], [#chann-3], [...]\n\n`
+        txt += `-> &ch add [#chann-1], [#chann-2], [#chann-3], [...]\n\n`
 
         txt += `Para quitar uno o varios canales de la WhiteList:\n`
         txt += `-> &channel del [#chann-1], [#chann-2], [#chann-3], [...]\n\n`
+        txt += `-> &ch del [#chann-1], [#chann-2], [#chann-3], [...]\n\n`
 
         txt += `Para agregar o quitar todos los canales de texto a la WhiteList:\n`
         txt += `-> &channel add all\n`
         txt += `-> &channel del all\n\n`
+        txt += `-> &ch add all\n`
+        txt += `-> &ch del all\n\n`
         txt += "```"
 
         break
@@ -57,7 +61,8 @@ cmd_help.callback = (msg, args) => {
         txt += `Este comando permite realizar conversiones de divisas utilizando los montos actualizados desde un servidor externo el cual gestiona tales cambios. `
         txt += `La sintaxis del comando es la siguiente:\n\n`
 
-        txt += `-> &money [valor] [moneda_1] a [moneda_2]\n\n`
+        txt += `-> &money [valor] [moneda_1] a [moneda_2]\n`
+        txt += `-> &mn [valor] [moneda_1] a [moneda_2]\n\n`
 
         txt += `En donde:\n`
         txt += `-> [valor]    = Corresponde al monto que se desea transformar. Tanto el punto y la coma se interpreta como separadore de decimales.\n`
@@ -66,6 +71,7 @@ cmd_help.callback = (msg, args) => {
 
         txt += `Ejemplo:\n`
         txt += `-> &money 125.5 CLP a USD`
+        txt += `-> &mn 125.5 CLP a USD`
         txt += "```"
         break
 
@@ -73,7 +79,8 @@ cmd_help.callback = (msg, args) => {
       case "debug":
         txt += "Comando **&debug - &dd:** ```"
         txt += `Funciones de depuración, disponibles únicamente para el desarrollador del bot, su sintaxis:\n`
-        txt += `-> &debug [option] [arg_1] [arg_2] [arg_3] ... [arg_n]\n\n`
+        txt += `-> &debug [option] [arg_1] [arg_2] [arg_3] ... [arg_n]\n`
+        txt += `-> &db [option] [arg_1] [arg_2] [arg_3] ... [arg_n]\n\n`
 
         txt += `En donde:\n`
         txt += `-> [option] = Subcomando a ejecutar.\n`
@@ -97,10 +104,26 @@ cmd_help.callback = (msg, args) => {
       case "image":
         txt += "Comando **&image - &im:** ```"
         txt += `Realiza una búsqueda de imágenes en Google, se utiliza de la siguiente forma:\n\n`
-        txt += `-> &image [lo_que_sea]\n\n`
+        txt += `-> &image [lo_que_sea]\n`
+        txt += `-> &im [lo_que_sea]\n\n`
 
         txt += "En donde:\n"
         txt += "-> [lo_que_sea] -> Palabras claves con las cuales realizar la búsqueda."
+        txt += "```"
+        break
+
+      case "av":
+      case "avatar":
+        txt += "Comando **&avatar - &av:** ```"
+        txt += `Muestra tu propio avatar, o muestra el avatar del usuario citado.\n\n`
+
+        txt += "Ejemplo:\n"
+        txt += "-> &avatar [usuario?]\n"
+        txt += "-> &av [usuario?]\n\n"
+
+        txt += "En donde:\n"
+        txt += "-> [usuario?] -> Citar al usuario citado (opcional)."
+
         txt += "```"
         break
 
