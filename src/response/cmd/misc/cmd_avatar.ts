@@ -20,10 +20,10 @@ cmd_avatar.callback = (msg, args) => {
   }
 
   if (xuser.length > 0) {
-    embed.description = "el avatar de **" + xuser[0].username + "**!"
+    embed.description = "El avatar de **" + xuser[0].username + "**!"
     embed.image.url = xuser[0].avatarURL
   } else {
-    embed.description = "su propio avatar!"
+    embed.description = "Su propio avatar!"
     embed.image.url = msg.author.avatarURL
   }
 
