@@ -2,7 +2,6 @@ module Config {
   //API Keys used by the Bot
   export module ApiKey {
     export const discord = "INSERT_YOUR_DISCORD_API_KEY_HERE"
-    export const fixer = "INSERT_YOUR_FIXER_API_KEY_HERE"
     export const google = {
       apiKey: "INSERT_YOUR_GOOGLE_CUSTOM_SEARCH_API_KEY_HERE",
       id: "INSERT_YOUR_GOOGLE_CUSTOM_SEARCH_ID_HERE"

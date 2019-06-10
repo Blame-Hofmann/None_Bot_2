@@ -20,7 +20,6 @@ module Config {
   //API Keys used by the Bot
   export module ApiKey {
     export const discord = "INSERT_YOUR_DISCORD_API_KEY_HERE"
-    export const Fixer = "INSERT_YOUR_FIXER_API_KEY_HERE"
     export const google = {
       apiKey: "INSERT_YOUR_GOOGLE_CUSTOM_SEARCH_API_KEY_HERE",
       id: "INSERT_YOUR_GOOGLE_CUSTOM_SEARCH_ID_HERE"
@@ -51,7 +50,6 @@ export default Config
 
 A este archivo hay que asignarle sus llaves correspondientes:
 * ApiKey.discord -> API Key de nuestro Bot.
-* ApiKey.fixer   -> API Key de [fixer.io](https://fixer.io/).
 
 También se pueden configurar aspectos propios del funcionamiento del bot:
 * symbol         -> El símbolo por el cual el bot reconocerá los comandos.

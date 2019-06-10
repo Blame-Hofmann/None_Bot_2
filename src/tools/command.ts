@@ -151,6 +151,8 @@ class Command {
 
         //Execute command
         executeCmd()
+      }, err => {
+        console.log(err)
       })
   }
 }

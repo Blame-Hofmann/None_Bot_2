@@ -1,6 +1,6 @@
 import Command from ">/tools/command"
 import Global from ">/global"
-import AjaxHTTP from ">/tools/ajax_http"
+import AjaxHTTPS from ">/tools/ajax_https"
 import Config from ">/config"
 import NumConv from ">/tools/num_conv"
 import { Decimal } from "decimal.js"
@@ -14,6 +14,9 @@ cmd_currency.callback = (msg, args) => {
   let txt_help: string = "Consulte `" + Config.Cmd.symbol + "help " + cmd_currency.cmd[0] + "` para más detalle~"
   if (args.length == 0) {
     msg.reply("Usted no ha ingresado ningún parámetro. " + txt_help)
+    return
+  } else if (args.length < 4) {
+    msg.reply("Usted no ha ingresado correctamente los parámetros. " + txt_help)
     return
   }
 
@@ -32,73 +35,45 @@ cmd_currency.callback = (msg, args) => {
   }
 
   //Making the URL
-  let strUrl: string = ""
-  strUrl += "http://data.fixer.io/api/latest"
-  strUrl += `?access_key=${Config.ApiKey.fixer}`
-  strUrl += `&symbols=${options.from},${options.to}`
-  strUrl += `&format=1`
+  let strUrl: string = "https://shauna.website/currency.json"
 
-  AjaxHTTP.get(strUrl, (res, data) => {
-    if (data.success == false) {
-      let error_msg = "En estos momentos tenemos problemas con el servidor proveedor de información de divisas. "
-      error_msg += "Me contactaré con el desarrollador para que solucione dicho problema."
-
-      msg.reply(error_msg)
-      error_msg = "Tenemos problemas con https://fixer.io/, he aquí los detalles ```"
-      error_msg += `Código: ${data.error.code}\n\n`
-      error_msg += `Descripción: ${data.error.code}` + "```"
-
-      Global.cli.fetchUser(Config.Cmd.id_dev).then(user => {
-        user.send(error_msg)
-      }, () => {
-        msg.reply("Lamentablemente no me puedo comunicar con el desarrollador :sob:")
-      })
+  AjaxHTTPS.get(strUrl, (res, data: { [key: string]: number }) => {
+    let converter =  {
+      from: data[options.from],
+      to: data[options.to]
     }
 
-    let objData = (() => {
-      if (data.rates != null) {
-        return data.rates
-      } else {
-        let nullable: any = {}
-        nullable[options.from] = null
-        nullable[options.to] = null
+    //Notificar de alguna moneda que no exista
+    let note: string = null
+    if ((converter.from == null) || (converter.to == null)) {
+      note = ""
 
-        return nullable
+      if (converter.from == null) {
+        note += `Moneda 1 -> ${options.from}`
       }
-    })()
-    let ref = {
-      from: objData[options.from],
-      to: objData[options.to]
+      if (converter.to == null) {
+        note += `\nMoneda 2 -> ${options.from}`
+      }
+
+      msg.reply(`Las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
+      return
     }
 
-    //En caso de que alguna de las divisas no exista
-    if ((ref.from == null) || (ref.to == null)) {
-        let note = ""
-        if (ref.from == null) {
-          note += "Moneda 1 = " + options.from + "\n"
-        }
-        if (ref.to == null) {
-          note += "Moneda 2 = " + options.to + "\n"
-        }
+    //Realizar cálculos
+    let numFrom = new Decimal(converter.from)
+    let numTo = new Decimal(converter.to)
 
-        msg.reply(`Las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
-    } else {
-      //Calculos...
-      let numFrom = new Decimal(ref.from)
-      let numTo = new Decimal(ref.to)
+    let numValue = options.amount
+    numValue = numValue.div(numFrom).mul(numTo)
 
-      let numValue = options.amount
-      numValue = numValue.div(numFrom).mul(numTo)
+    let strFrom: string = NumConv.formatNum(options.amount.toString(), 2)
+    let strValue: string = NumConv.formatNum(numValue.toString(), 2)
 
-      let strFrom: string = NumConv.formatNum(options.amount.toString(), 2)
-      let strValue: string = NumConv.formatNum(numValue.toString(), 2)
+    let strReply: string = ""
+    strReply += 'La conversión dió como Resultado:\n'
+    strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
 
-      let strReply: string = ""
-      strReply += 'La conversión dió como Resultado:\n'
-      strReply += '```$ ' + strFrom + ' ' + options.from + ' => $ ' + strValue + ' ' + options.to + '```'
-
-      msg.reply(strReply)
-    }
+    msg.reply(strReply)
   }, () => {
     let strReply: string = ""
     strReply += `Lamentablemente hay un problema con la conexión con el servidor remoto de divisas.\n`
