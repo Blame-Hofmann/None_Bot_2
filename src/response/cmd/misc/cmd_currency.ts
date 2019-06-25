@@ -52,7 +52,7 @@ cmd_currency.callback = (msg, args) => {
         note += `Moneda 1 -> ${options.from}`
       }
       if (converter.to == null) {
-        note += `\nMoneda 2 -> ${options.from}`
+        note += `\nMoneda 2 -> ${options.to}`
       }
 
       msg.reply(`Las siguientes monedas no existen dentro de la norma ISO:\n` + "```" + note + "```")
