@@ -18,7 +18,8 @@ cmd_help.callback = (msg, args) => {
     txt += `&money     -> [mn] Conversor de Divisas.\n`
     txt += `&flip      -> [ff] Lanza una moneda.\n`
     txt += `&image     -> [im] Realiza una búsqueda de imágenes.\n`
-    txt += `&avatar    -> [av] Muestra tu avatar o el avatar de alguien más.\n\n`
+    txt += `&avatar    -> [av] Muestra tu avatar o el avatar de alguien más.\n`
+    txt += `&purge     -> [pg] Elimina todos los mensajes de los usuarios citados en los canales citados.\n\n`
 
     txt += `Para consultar por un comando específico:\n`
     txt += `-> &help [cmd]\n`
@@ -132,6 +133,30 @@ cmd_help.callback = (msg, args) => {
         txt += "-> &av @user\n"
         txt += "```"
         break
+
+      case "pg":
+      case "purge":
+        txt += "Comando **&purge - &pg:** ```"
+        txt += `Elimina todos los mensajes de todos los usuarios citados, en todos los canales\n`
+        txt += `también citados. Solo los usuarios con permisos para Administrar Mensajes\n`
+        txt += `pueden usar este comando.\n\n`
+
+        txt += "Ejemplo:\n"
+        txt += "-> &purge [usuario/s] [...] [canal/es] [...]\n"
+        txt += "-> &pg [usuario/s] [...] [canal/es] [...]\n\n"
+
+        txt += "En donde:\n"
+        txt += "-> [usuario/s] -> Citar al usuario o los usuarios.\n"
+        txt += "-> [canal/es]  -> Citar al canal o canales a limpiar.\n\n"
+
+        txt += "Ejemplo:\n"
+        txt += "-> &purge @usuario #canal\n"
+        txt += "-> &pg @usuario #canal\n"
+        txt += "-> &purge @usuario_1 @usuario_2 #canal-1 #canal-2\n"
+        txt += "-> &pg @usuario_1 @usuario_2 #canal-1 #canal-2\n"
+        txt += "```"
+        break
+
 
       default:
         txt += `Lo siento ` + msg.author + ", pero ese comando no existe. Ejecute `&help` para visualizar la guía de usuario."
