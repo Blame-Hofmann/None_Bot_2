@@ -4,8 +4,8 @@
   "description": "A bot for Discord with MySQL.",
   "main": "dist/init.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "del /q /s \"dist\" && tsc && node dist/init.js"
+    "compile": "del /q /s \"dist\" && tsc",
+    "start": "node dist/init.js"
   },
   "repository": {
     "type": "git",
