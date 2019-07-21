@@ -82,7 +82,10 @@ cmd_purge.callback = (msg, args, txt) => {
   })
 
   //Finished
-  msg.reply(`Purga Completada!`)
+  msg.reply(`Purga Completada!`).then((sent) => {
+    let resp = sent as Discord.Message
+    resp.delete(2000)
+  })
 }
 
 //Check Permissions
