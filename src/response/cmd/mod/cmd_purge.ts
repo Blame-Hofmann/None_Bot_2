@@ -82,9 +82,11 @@ cmd_purge.callback = (msg, args, txt) => {
   })
 
   //Finished
-  msg.reply(`Purga Completada!`).then((sent) => {
+  msg.reply(`Purga Completada!`).then(async (sent) => {
     let resp = sent as Discord.Message
-    resp.delete(2000)
+
+    await resp.delete(2000)
+    await msg.delete()
   })
 }
 
