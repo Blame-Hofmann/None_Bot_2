@@ -26,7 +26,7 @@
     "discord.js": "^11.4.2",
     "google-images": "^2.1.0",
     "module-alias": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mysql": "^2.16.0"
   }
 }
